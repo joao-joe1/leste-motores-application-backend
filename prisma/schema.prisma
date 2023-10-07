@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Admin {
-  id       String @id @unique
+  id       Int    @id @default(autoincrement())
   name     String @unique
   password String
 

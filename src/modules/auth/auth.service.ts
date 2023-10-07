@@ -4,24 +4,21 @@ import { LoginDTO } from './dto/loginDTO.dto';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET
+const JWT_SECRET = 'add845817ac6a396b6cf8a00c2caaf5c'
 
 @Injectable()
 export class AuthService {
   constructor(private readonly prismaService: PrismaService) { }
-  async login(@Body() body: LoginDTO) {
-    const validationAuth = await this.prismaService.admin.findUnique({ where: { name: LoginDTO.name } })
-    if (!validationAuth) { throw new ConflictException('Invalid Credentials') }
+  async login(body: LoginDTO) {
+    const validationAuth = await this.prismaService.admin.findUnique({ where: { name: body.name } })
+    if (!validationAuth) { throw new ConflictException('Incorrect Credentials!') }
 
     const validationPassword = await compare(body.password, validationAuth.password)
-    if (!validationPassword) { throw new ConflictException('Invalid Credentials') }
+    if (!validationPassword) { throw new ConflictException('Incorrect Credentials!') }
 
     const token = sign({ name: validationAuth.name }, JWT_SECRET, {
-      subject: validationAuth.id,
+      subject: validationAuth.id.toString(),
       expiresIn: '1d'
     })
-
-    return { message: 'Sucess!', token }
-
   }
 }

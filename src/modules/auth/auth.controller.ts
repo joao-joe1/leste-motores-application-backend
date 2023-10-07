@@ -11,5 +11,7 @@ export class AuthController {
   @UsePipes(new ValidationPipe({ transform: true }))
   async login(@Body() body: LoginDTO) {
     const validation = await this.authService.login(body)
+
+    console.log('test')
   }
 }
