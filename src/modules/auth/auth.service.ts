@@ -1,26 +1,27 @@
-import { Injectable } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { Body, ConflictException, Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/infra/prisma/prisma.service';
+import { LoginDTO } from './dto/loginDTO.dto';
+import { compare } from 'bcryptjs';
+import { sign } from 'jsonwebtoken';
+
+const JWT_SECRET = process.env.JWT_SECRET
 
 @Injectable()
 export class AuthService {
-  create(createAuthDto: CreateAuthDto) {
-    return 'This action adds a new auth';
-  }
+  constructor(private readonly prismaService: PrismaService) { }
+  async login(@Body() body: LoginDTO) {
+    const validationAuth = await this.prismaService.admin.findUnique({ where: { name: LoginDTO.name } })
+    if (!validationAuth) { throw new ConflictException('Invalid Credentials') }
 
-  findAll() {
-    return `This action returns all auth`;
-  }
+    const validationPassword = await compare(body.password, validationAuth.password)
+    if (!validationPassword) { throw new ConflictException('Invalid Credentials') }
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
+    const token = sign({ name: validationAuth.name }, JWT_SECRET, {
+      subject: validationAuth.id,
+      expiresIn: '1d'
+    })
 
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
+    return { message: 'Sucess!', token }
 
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
   }
 }
