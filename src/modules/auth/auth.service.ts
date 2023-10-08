@@ -4,7 +4,7 @@ import { LoginDTO } from './dto/loginDTO.dto';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 
-const JWT_SECRET = 'add845817ac6a396b6cf8a00c2caaf5c'
+const JWT_SECRET = process.env.JWT_SECRET
 
 @Injectable()
 export class AuthService {
