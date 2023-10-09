@@ -20,5 +20,7 @@ export class AuthService {
       subject: validationAuth.id.toString(),
       expiresIn: '1d'
     })
+
+    return token
   }
 }

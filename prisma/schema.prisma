@@ -19,35 +19,34 @@ model Admin {
 }
 
 model Category {
-  id       Int           @id @default(autoincrement())
+  id       Int            @id @default(autoincrement())
   category String
-  types    ProductType[]
+  types    CategoryType[]
   Product  Product[]
 
   @@map("categories")
 }
 
-model ProductType {
-  id          Int       @id @default(autoincrement())
-  typeName    String
-  description String
-  categoryId  Int
-  category    Category  @relation(fields: [categoryId], references: [id])
-  products    Product[]
+model CategoryType {
+  id         Int       @id @default(autoincrement())
+  typeName   String
+  categoryId Int
+  category   Category  @relation(fields: [categoryId], references: [id])
+  products   Product[]
 
-  @@map("products_types")
+  @@map("categories_types")
 }
 
 model Product {
-  id          Int         @id @default(autoincrement())
+  id          Int          @id @default(autoincrement())
   image_url   String
   name        String
   about       String
   information String
   categoryId  Int
   typeId      Int
-  category    Category    @relation(fields: [categoryId], references: [id])
-  productType ProductType @relation(fields: [typeId], references: [id])
+  category    Category     @relation(fields: [categoryId], references: [id])
+  productType CategoryType @relation(fields: [typeId], references: [id])
 
   @@map("products")
 }
