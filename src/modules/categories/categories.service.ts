@@ -5,6 +5,17 @@ import { CreateCategoryDto } from './dto/create-category.dto';
 @Injectable()
 export class CategoriesService {
     constructor(private readonly prismaService: PrismaService) { }
+
+    async findCategories() {
+        const categoriesWithTypes = await this.prismaService.category.findMany({
+            include: {
+                types: true
+            },
+        });
+
+        return categoriesWithTypes;
+    }
+
     async createCategory(body: CreateCategoryDto) {
 
         const categoryExists = await this.prismaService.category.findFirst({

@@ -8,6 +8,12 @@ import { CategoriesService } from './categories.service';
 export class CategoriesController {
   constructor(private readonly prismaService: PrismaService, private readonly categoriesService: CategoriesService) { }
 
+  @Get('/list')
+  async getCategories() {
+    const getCategories = await this.categoriesService.findCategories();
+    return { getCategories }
+  }
+
   @Post('/create')
   @UseGuards(AdminCheckGuard)
   @UsePipes(new ValidationPipe({ transform: true }))

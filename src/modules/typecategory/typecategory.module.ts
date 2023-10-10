@@ -6,4 +6,4 @@ import { TypecategoryController } from './typecategory.controller';
   controllers: [TypecategoryController],
   providers: [TypecategoryService],
 })
-export class TypecategoryModule {}
+export class TypeCategoryModule { }
