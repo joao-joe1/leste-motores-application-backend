@@ -1,6 +1,7 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/infra/prisma/prisma.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
+import * as fs from 'fs';
 
 @Injectable()
 export class CategoriesService {
@@ -24,8 +25,14 @@ export class CategoriesService {
 
         if (categoryExists) { throw new ConflictException('Category was already exists!') }
 
+        let imageBase64 = null;
+        if (body.image_url) {
+            const imageBuffer = fs.readFileSync(body.image_url);
+            imageBase64 = imageBuffer.toString('base64');
+        }
+
         const createCategory = await this.prismaService.category.create({
-            data: { category: body.category }
+            data: { category: body.category, image_url: imageBase64 }
         })
 
         return { message: 'Category was create!', createCategory }

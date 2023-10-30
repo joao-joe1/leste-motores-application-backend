@@ -19,10 +19,11 @@ model Admin {
 }
 
 model Category {
-  id       Int            @id @default(autoincrement())
-  category String
-  types    CategoryType[]
-  Product  Product[]
+  id        Int            @id @default(autoincrement())
+  image_url String
+  category  String
+  types     CategoryType[]
+  Product   Product[]
 
   @@map("categories")
 }
