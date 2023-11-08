@@ -1,0 +1,4 @@
+{
+    "discord.lowerDetailsEditing": "📦 Project: {workspace}",
+    "discord.detailsEditing": "💖 Editing: {file_name} in {dir_name}"
+}
