@@ -30,7 +30,6 @@ export class TypecategoryService {
 
         return { message: 'Category type created!', createCategoryType };
     }
-<<<<<<< HEAD
 
     async listCategoryType() {
         const listCategoryType = await this.prismaService.categoryType.findMany({
@@ -42,6 +41,4 @@ export class TypecategoryService {
     async deleteCategoryType() {
 
     }
-=======
->>>>>>> 6f3bd36de7d9340f46da1b439aa4362ed59ded2c
 }

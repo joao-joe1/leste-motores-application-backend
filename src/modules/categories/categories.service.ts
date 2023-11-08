@@ -2,10 +2,7 @@ import { ConflictException, Injectable, NotFoundException } from '@nestjs/common
 import { PrismaService } from 'src/infra/prisma/prisma.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import * as fs from 'fs';
-<<<<<<< HEAD
 import { updateCategoryDTO } from './dto/updateCategory.dto';
-=======
->>>>>>> 6f3bd36de7d9340f46da1b439aa4362ed59ded2c
 
 @Injectable()
 export class CategoriesService {
@@ -29,7 +26,6 @@ export class CategoriesService {
 
         if (categoryExists) { throw new ConflictException('Category was already exists!') }
 
-<<<<<<< HEAD
         // let imageBase64 = null;
         // if (body.image_url) {
         //     const imageBuffer = fs.readFileSync(body.image_url);
@@ -38,16 +34,6 @@ export class CategoriesService {
 
         const createCategory = await this.prismaService.category.create({
             data: { category: body.category, image_url: body.image_url }
-=======
-        let imageBase64 = null;
-        if (body.image_url) {
-            const imageBuffer = fs.readFileSync(body.image_url);
-            imageBase64 = imageBuffer.toString('base64');
-        }
-
-        const createCategory = await this.prismaService.category.create({
-            data: { category: body.category, image_url: imageBase64 }
->>>>>>> 6f3bd36de7d9340f46da1b439aa4362ed59ded2c
         })
 
         return { message: 'Category was create!', createCategory }
@@ -67,7 +53,6 @@ export class CategoriesService {
 
         return { message: 'Category deleted!', deleteCategory };
     }
-<<<<<<< HEAD
 
     async updateCategory(body: updateCategoryDTO) {
 
@@ -84,6 +69,4 @@ export class CategoriesService {
 
         return { message: 'Category has updated!', updateCategory }
     }
-=======
->>>>>>> 6f3bd36de7d9340f46da1b439aa4362ed59ded2c
 }
