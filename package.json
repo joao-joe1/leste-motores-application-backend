@@ -21,8 +21,13 @@
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
+<<<<<<< HEAD
     "@nestjs/core": "^10.2.8",
     "@nestjs/mapped-types": "^2.0.2",
+=======
+    "@nestjs/core": "^10.0.0",
+    "@nestjs/mapped-types": "*",
+>>>>>>> 6f3bd36de7d9340f46da1b439aa4362ed59ded2c
     "@nestjs/platform-express": "^10.0.0",
     "@prisma/client": "^5.4.1",
     "@types/jsonwebtoken": "^9.0.3",

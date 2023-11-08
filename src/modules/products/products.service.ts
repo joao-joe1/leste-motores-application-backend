@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { ConflictException, Injectable, NotFoundException } from "@nestjs/common";
+=======
+import { Injectable, NotFoundException } from "@nestjs/common";
+>>>>>>> 6f3bd36de7d9340f46da1b439aa4362ed59ded2c
 import { PrismaService } from "src/infra/prisma/prisma.service";
 import { CreateProductDto } from "./dto/create-product.dto";
 
@@ -6,11 +10,14 @@ import { CreateProductDto } from "./dto/create-product.dto";
 export class ProductsService {
     constructor(private readonly prismaService: PrismaService) { }
 
+<<<<<<< HEAD
     async listProducts() {
         const listProducts = await this.prismaService.product.findMany()
         return listProducts
     }
 
+=======
+>>>>>>> 6f3bd36de7d9340f46da1b439aa4362ed59ded2c
     async createProduct(createProductDto: CreateProductDto) {
         const { category, type, ...productData } = createProductDto;
 
@@ -37,6 +44,7 @@ export class ProductsService {
         return createProduct;
     }
 
+<<<<<<< HEAD
     async deleteProduct(body: CreateProductDto) {
         const { name } = body
 
@@ -52,4 +60,15 @@ export class ProductsService {
 
         return deleteProduct
     }
+=======
+    // async deleteProduct(body: CreateProductDto) {
+    //     const { name } = body
+
+    //     const deleteProduct = await this.prismaService.product.findFirst({
+    //         where: { name: name }
+    //     })
+
+    //     if(!deleteProduct)
+    // }
+>>>>>>> 6f3bd36de7d9340f46da1b439aa4362ed59ded2c
 }
